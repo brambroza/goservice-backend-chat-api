@@ -27,6 +27,7 @@ export interface AppConfig {
     url: string;
     password?: string;
   };
+  mlBase?: string;
 }
 
 const schema = Joi.object({
@@ -50,6 +51,7 @@ const schema = Joi.object({
   RABBITMQ_ROUTING_KEY: Joi.string().default('integration.tasks'),
   REDIS_URL: Joi.string().uri().default('redis://localhost:6379/0'),
   REDIS_PASSWORD: Joi.string().allow('', null),
+  ML_BASE: Joi.string().uri().optional(),
 });
 
 export function loadConfig(): AppConfig {
@@ -85,5 +87,6 @@ export function loadConfig(): AppConfig {
       url: value.REDIS_URL,
       password: value.REDIS_PASSWORD,
     },
+    mlBase: value.ML_BASE,
   };
 }
